@@ -1,0 +1,71 @@
+.main
+    .var
+        x
+        y
+    .end-var
+
+    bipush 5
+    bipush 5
+
+    istore x
+    istore y
+
+    invokevirtual MET
+
+    halt
+.end-main
+
+.method MET(x,y)
+    iload y
+    iload x
+    isub
+    iflt case_1
+    iload x
+    iload y
+    isub 
+    iflt case_2
+    iload x
+    iload y
+    ior
+    ireturn
+    case_1:
+        iload x
+        iload y
+        iadd
+        bipush 2
+        istore x
+        invokevirtual mult
+        swap
+        bipush 4
+        istore x
+        istore y
+        invokevirtual mult
+        iadd
+        bipush 4
+        iadd
+        ireturn 
+    case_2:
+        iload x
+        iload y
+        iand
+        ireturn
+        
+.end-method
+
+.method mult(x,y)
+    iload x
+    ifeq zero
+    iload y
+    ifeq zero
+    iinc j -1
+    iload x
+    iload y
+    invokevirtual mult
+    iload x
+    iadd
+    goto fine
+    zero:
+        bipush 0
+    fine:
+        ireturn
+.end-method

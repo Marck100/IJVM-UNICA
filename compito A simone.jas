@@ -4,6 +4,9 @@
         y
     .end-var
 
+    bipush 0x41
+    out
+
     bipush 5
     bipush 5
 
@@ -11,6 +14,10 @@
     istore y
 
     invokevirtual MET
+
+    bipush 0x41
+    iadd
+    out
 
     halt
 .end-main
@@ -27,7 +34,7 @@
     iload x
     iload y
     ior
-    ireturn
+    goto return
     case_1:
         iload x
         iload y
@@ -43,11 +50,14 @@
         iadd
         bipush 4
         iadd
-        ireturn 
+        goto return 
     case_2:
         iload x
         iload y
         iand
+        goto return
+
+    return:
         ireturn
         
 .end-method
@@ -57,7 +67,7 @@
     ifeq zero
     iload y
     ifeq zero
-    iinc j -1
+    iinc y -1
     iload x
     iload y
     invokevirtual mult
